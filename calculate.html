@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>My Calculator App</title>
+    <!-- CSS style for error messages -->
+    <style>
+        .errmsg {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Calculator App heading -->
+    <h3>Calculator App</h3>
+
+    <!-- Display section for X, operator, Y, and result -->
+    <p id="display">
+        X (select operator) Y = Z
+    </p>
+
+    <!-- Input for X -->
+    <p>
+        <b>X</b>: <input type="text" id="operand1" />
+    </p>
+
+    <!-- Dropdown for selecting operator -->
+    <select name="operands" id="oprd">
+        <option disabled selected value> -- select an option -- </option>
+        <option value="+"><b>+</b></option>
+        <option value="-"><b>-</b></option>
+        <option value="*"><b>*</b></option>
+        <option value="/"><b>/</b></option>
+    </select>
+
+    <!-- Input for Y -->
+    <p>
+        <b>Y</b>: <input type="text" id="operand2" />
+    </p>
+
+    <!-- Displaying the result (Z) -->
+    <p>
+        <b>Z</b>: <span id="result"></span>
+    </p>
+
+    <!-- Button to trigger the calculation -->
+    <p>
+        <input type="button" value="Calculate" onclick="calculate()" />
+    </p>
+
+    <!-- Error message section -->
+    <p class="errmsg" id="error">
+
+    </p>
+
+    <!-- JavaScript code for the calculator functionality -->
+    <script>
+        function calculate() {
+            // Retrieving values of X, Y, and the selected operator
+            let x = document.getElementById("operand1").value;
+            let y = document.getElementById("operand2").value;
+            let oprand = document.getElementById("oprd").value;
+
+            // Checking for empty values
+            if (x === "" || y === "") {
+                document.getElementById("error").innerHTML = "Error: Invalid Input (Empty values)";
+                console.log("Invalid: Empty values");
+            } else if (isNaN(x) || isNaN(y)) {
+                // Checking for character input
+                document.getElementById("error").innerHTML = "Error: Invalid Input (Character not Allowed)";
+                console.log("Invalid: Character input");
+            } else {
+                // Performing calculations based on the selected operator
+                if (oprand == "+") {
+                    document.getElementById("display").innerHTML = "X + Y = Z";
+                    let z = parseFloat(x) + parseFloat(y);
+                    document.getElementById("result").innerHTML = z;
+                    console.log(z);
+                    document.getElementById("error").innerHTML = "";
+                } else if (oprand == "-") {
+                    document.getElementById("display").innerHTML = "X - Y = Z";
+                    let z = parseFloat(x) - parseFloat(y);
+                    document.getElementById("result").innerHTML = z;
+                    console.log(z);
+                    document.getElementById("error").innerHTML = "";
+                } else if (oprand == "*") {
+                    document.getElementById("display").innerHTML = "X * Y = Z";
+                    let z = parseFloat(x) * parseFloat(y);
+                    document.getElementById("result").innerHTML = z;
+                    console.log(z);
+                    document.getElementById("error").innerHTML = "";
+                } else if (oprand == "/") {
+                    // Checking for division by 0
+                    if (parseFloat(y) == 0) {
+                        console.log("Not allowed to divide by 0");
+                        document.getElementById("error").innerHTML = "Error: Division by 0 is not allowed";
+                        document.getElementById("result").innerHTML = "";
+                    } else {
+                        document.getElementById("display").innerHTML = "X / Y = Z";
+                        let z = parseFloat(x) / parseFloat(y);
+                        document.getElementById("result").innerHTML = z;
+                        console.log(z);
+                        document.getElementById("error").innerHTML = "";
+                    }
+                }
+                else if (oprand == "")
+                {                
+                    document.getElementById("error").innerHTML = "Please select operator";
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
