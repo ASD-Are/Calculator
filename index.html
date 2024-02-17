@@ -27,7 +27,7 @@
     </p>
 
     <!-- Dropdown for selecting operator -->
-    <select name="operands" id="oprd">
+    <select name="operands" id="oprd" onchange="clearResult()">
         <option disabled selected value> -- select an option -- </option>
         <option value="+"><b>+</b></option>
         <option value="-"><b>-</b></option>
@@ -51,16 +51,14 @@
     </p>
 
     <!-- Error message section -->
-    <p class="errmsg" id="error">
-
-    </p>
+    <p class="errmsg" id="error"></p>
 
     <!-- JavaScript code for the calculator functionality -->
     <script>
         function calculate() {
             // Retrieving values of X, Y, and the selected operator
-            let x = document.getElementById("operand1").value;
-            let y = document.getElementById("operand2").value;
+            let x = document.getElementById("operand1").value.trim();
+            let y = document.getElementById("operand2").value.trim();
             let oprand = document.getElementById("oprd").value;
 
             // Checking for empty values
@@ -76,19 +74,19 @@
                 if (oprand == "+") {
                     document.getElementById("display").innerHTML = "X + Y = Z";
                     let z = parseFloat(x) + parseFloat(y);
-                    document.getElementById("result").innerHTML = z;
+                    document.getElementById("result").innerHTML = z.toFixed(2);
                     console.log(z);
                     document.getElementById("error").innerHTML = "";
                 } else if (oprand == "-") {
                     document.getElementById("display").innerHTML = "X - Y = Z";
                     let z = parseFloat(x) - parseFloat(y);
-                    document.getElementById("result").innerHTML = z;
+                    document.getElementById("result").innerHTML = z.toFixed(2);
                     console.log(z);
                     document.getElementById("error").innerHTML = "";
                 } else if (oprand == "*") {
                     document.getElementById("display").innerHTML = "X * Y = Z";
                     let z = parseFloat(x) * parseFloat(y);
-                    document.getElementById("result").innerHTML = z;
+                    document.getElementById("result").innerHTML = z.toFixed(2);
                     console.log(z);
                     document.getElementById("error").innerHTML = "";
                 } else if (oprand == "/") {
@@ -100,16 +98,19 @@
                     } else {
                         document.getElementById("display").innerHTML = "X / Y = Z";
                         let z = parseFloat(x) / parseFloat(y);
-                        document.getElementById("result").innerHTML = z;
+                        document.getElementById("result").innerHTML = z.toFixed(2);
                         console.log(z);
                         document.getElementById("error").innerHTML = "";
                     }
-                }
-                else if (oprand == "")
-                {                
-                    document.getElementById("error").innerHTML = "Please select operator";
+                } else {
+                    document.getElementById("error").innerHTML = "Error: Invalid operator selected";
                 }
             }
+        }
+
+        function clearResult() {
+            // Clear the result display when the operator changes
+            document.getElementById("result").innerHTML = "";
         }
     </script>
 
